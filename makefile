@@ -4,7 +4,7 @@
 # mwetter@lbl.gov                                    2019-01-08
 ###############################################################
 
-OPENMODELICA_VERSION=1.16.1
+OPENMODELICA_VERSION=1.19.0_dev-470-g5085945-1
 TOP_PACKAGE=Buildings
 
 # Top level package name, and location of the library to be tested
@@ -19,21 +19,15 @@ endif
 
 MO_ROOT=$(shell basename ${MODELICA_LIB})
 
-NAME=ubuntu/openmodelica:${OPENMODELICA_VERSION}
+NAME=michaelwetter/ubuntu-2004-omc:${OPENMODELICA_VERSION}
 
 #DISPLAY=$(shell echo ${DOCKER_HOST} | sed -e 's|tcp://||' | sed -e 's|:.*||')
 UNAME := $(shell uname)
-
-ifneq ($(UNAME), Linux)
-DISPLAY=10.0.0.3:0
-endif
 
 DOCKER_FLAGS=\
 	--detach=false \
 	--rm \
 	--user=developer \
-	-v /tmp/.X11-unix:/tmp/.X11-unix \
-	-e DISPLAY=${DISPLAY} \
 	-v ${MODELICA_LIB}:/mnt/modelica_lib \
 	-v `pwd`/shared:/mnt/shared \
 	${NAME}
@@ -48,16 +42,13 @@ start_bash:
 	    export MODELICAPATH=/mnt/modelica_lib && \
             cd /mnt/shared && bash"
 
-run_omedit:
-	$(COMMAND_RUN) \
-	"cd /mnt/modelica_lib/${TOP_PACKAGE} && \
-        OMEdit package.mo"
-
 test:
+	rm -f shared/Modelica.Blocks.Examples.PID_Controller*
 	cp test.mos shared/
 	$(COMMAND_RUN) \
 	  "cd /mnt/shared && \
 	  omc test.mos"
+	rm shared/Modelica.Blocks.Examples.PID_Controller*
 
 remove:
 	docker rm $(docker ps -a -q)
@@ -69,3 +60,7 @@ remove-image:
 build:
 	@echo Building docker image ${NAME}
 	docker build --no-cache -t ${NAME} .
+
+push:
+	@echo "**** Pushing image ${NAME}"
+	docker push ${NAME}

@@ -1,5 +1,4 @@
-FROM ubuntu:18.04
-MAINTAINER Michael Wetter <mwetter@lbl.gov>
+FROM ubuntu:20.04
 
 # Avoid warnings
 # debconf: unable to initialize frontend: Dialog
@@ -15,21 +14,15 @@ RUN apt-get update && \
   && \
   rm -rf /var/lib/apt/lists/*
 
-RUN echo "deb http://build.openmodelica.org/apt bionic stable" | tee -a /etc/apt/sources.list
-RUN echo "deb-src http://build.openmodelica.org/apt bionic stable" | tee -a /etc/apt/sources.list
+RUN echo "deb http://build.openmodelica.org/apt bionic nightly" | tee -a /etc/apt/sources.list
+RUN echo "deb-src http://build.openmodelica.org/apt bionic nightly" | tee -a /etc/apt/sources.list
 RUN wget -qO- http://build.openmodelica.org/apt/openmodelica.asc | apt-key add -
-
-## Installing 1.61.1-1 requires
-## the command RUN echo "deb https://build.openmodelica.org/omc/builds/linux/releases/1.16.1/ bionic release" | tee -a /etc/apt/sources.list
-##RUN apt-get update && \
-##  apt-get --no-install-recommends install -y \
-##  omc=1.16.1-1 \
-##  omlib-modelica-3.2.2
 
 RUN apt-get update && \
   apt-get --no-install-recommends install -y \
-  openmodelica && \
-  (for PKG in `apt-cache search "omlib-modelica*" | cut -d" " -f1`; do apt-get install -y "$PKG"; done) && \
+  omc=1.19.0~dev-470-g5085945-1 \
+  omlib-modelica-4.0.0=4.0.0~20210622~131817~git~OM~maint~4.0.x-1 \
+  omlib-modelica-3.2.3=3.2.3~20210516~174036~git~OM~maint~3.2.3-1 && \
   rm -rf /var/lib/apt/lists/*
 
 # Set user id
