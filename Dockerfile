@@ -15,12 +15,13 @@ RUN apt-get update && \
   rm -rf /var/lib/apt/lists/*
 
 RUN echo "deb http://build.openmodelica.org/apt bionic nightly" | tee -a /etc/apt/sources.list
+RUN echo "deb http://build.openmodelica.org/apt bionic stable" | tee -a /etc/apt/sources.list
 RUN echo "deb-src http://build.openmodelica.org/apt bionic nightly" | tee -a /etc/apt/sources.list
 RUN wget -qO- http://build.openmodelica.org/apt/openmodelica.asc | apt-key add -
 
 RUN apt-get update && \
   apt-get --no-install-recommends install -y \
-  omc=1.19.0~dev-470-g5085945-1 \
+  omc=1.19.0~dev-531-g72aca4f-1 \
   omlib-modelica-4.0.0=4.0.0~20210622~131817~git~OM~maint~4.0.x-1 \
   omlib-modelica-3.2.3=3.2.3~20210516~174036~git~OM~maint~3.2.3-1 && \
   rm -rf /var/lib/apt/lists/*
