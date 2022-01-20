@@ -6,11 +6,13 @@ FROM ubuntu:20.04
 # RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
 
 #####################################################################
+# libgfortran4 is needed to load FMU for FMUZoneAdapterZones1.mo
 RUN apt-get update && \
   apt-get --no-install-recommends install -y \
   ca-certificates \
   wget \
   gnupg2 \
+  libgfortran4 \
   && \
   rm -rf /var/lib/apt/lists/*
 
@@ -21,7 +23,7 @@ RUN wget -qO- http://build.openmodelica.org/apt/openmodelica.asc | apt-key add -
 
 RUN apt-get update && \
   apt-get --no-install-recommends install -y \
-  omc=1.19.0~dev-531-g72aca4f-1 \
+  omc=1.19.0~dev-539-gb76366f-1 \
   omlib-modelica-4.0.0=4.0.0~20210622~131817~git~OM~maint~4.0.x-1 \
   omlib-modelica-3.2.3=3.2.3~20210516~174036~git~OM~maint~3.2.3-1 && \
   rm -rf /var/lib/apt/lists/*
