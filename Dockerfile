@@ -7,7 +7,7 @@ FROM ubuntu:20.04
 
 #####################################################################
 # libgfortran4 is needed to load FMU for FMUZoneAdapterZones1.mo
-# libpython3.8-dev  is needed for Buildings.Utilities.IO.Python_3_8
+# libpython3.8-dev is needed for Buildings.Utilities.IO.Python_3_8
 RUN apt-get update && \
   apt-get --no-install-recommends install -y \
   ca-certificates \
