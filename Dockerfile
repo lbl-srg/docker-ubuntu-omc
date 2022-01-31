@@ -7,23 +7,26 @@ FROM ubuntu:20.04
 
 #####################################################################
 # libgfortran4 is needed to load FMU for FMUZoneAdapterZones1.mo
+# libpython3.8-dev  is needed for Buildings.Utilities.IO.Python_3_8
 RUN apt-get update && \
   apt-get --no-install-recommends install -y \
   ca-certificates \
   wget \
   gnupg2 \
   libgfortran4 \
+  libpython3.8-dev \
   && \
   rm -rf /var/lib/apt/lists/*
 
-RUN echo "deb http://build.openmodelica.org/apt bionic nightly" | tee -a /etc/apt/sources.list
-RUN echo "deb http://build.openmodelica.org/apt bionic stable" | tee -a /etc/apt/sources.list
-RUN echo "deb-src http://build.openmodelica.org/apt bionic nightly" | tee -a /etc/apt/sources.list
+RUN echo "deb https://build.openmodelica.org/apt focal nightly" | tee -a /etc/apt/sources.list
+RUN echo "deb https://build.openmodelica.org/apt focal stable"  | tee -a /etc/apt/sources.list
+RUN echo "deb https://build.openmodelica.org/apt focal release" | tee -a /etc/apt/sources.list
 RUN wget -qO- http://build.openmodelica.org/apt/openmodelica.asc | apt-key add -
 
+# See https://build.openmodelica.org/apt/dists/focal/nightly/binary-amd64/Packages for package version.
 RUN apt-get update && \
   apt-get --no-install-recommends install -y \
-  omc=1.19.0~dev-539-gb76366f-1 \
+  omc=1.19.0~dev-551-g1772c4b-1 \
   omlib-modelica-4.0.0=4.0.0~20210622~131817~git~OM~maint~4.0.x-1 \
   omlib-modelica-3.2.3=3.2.3~20210516~174036~git~OM~maint~3.2.3-1 && \
   rm -rf /var/lib/apt/lists/*
