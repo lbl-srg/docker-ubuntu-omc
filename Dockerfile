@@ -26,7 +26,7 @@ RUN wget -qO- http://build.openmodelica.org/apt/openmodelica.asc | apt-key add -
 # See https://build.openmodelica.org/apt/dists/focal/nightly/binary-amd64/Packages for package version.
 RUN apt-get update && \
   apt-get --no-install-recommends install -y \
-  omc=1.19.0~dev-573-g07173a7-1 \
+  omc=1.19.0~dev-613-gd6e04c0-1 \
   omlib-modelica-4.0.0=4.0.0~20210622~131817~git~OM~maint~4.0.x-1 \
   omlib-modelica-3.2.3=3.2.3~20210516~174036~git~OM~maint~3.2.3-1 && \
   rm -rf /var/lib/apt/lists/*
