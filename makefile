@@ -44,6 +44,7 @@ start_bash:
 
 test:
 	rm -f shared/Modelica.Blocks.Examples.PID_Controller*
+	mkdir -p shared
 	cp test.mos shared/
 	$(COMMAND_RUN) \
 	  "cd /mnt/shared && \
