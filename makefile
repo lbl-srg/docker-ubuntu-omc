@@ -4,7 +4,7 @@
 # mwetter@lbl.gov                                    2019-01-08
 ###############################################################
 
-OPENMODELICA_VERSION=1.19.0_dev-613-gd6e04c0-1
+OPENMODELICA_VERSION=1.20.0_dev-229-gd229500-1
 TOP_PACKAGE=Buildings
 
 # Top level package name, and location of the library to be tested
