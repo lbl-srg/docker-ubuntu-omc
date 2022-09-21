@@ -4,7 +4,7 @@
 # mwetter@lbl.gov                                    2019-01-08
 ###############################################################
 
-OPENMODELICA_VERSION=1.20.0_dev-229-gd229500-1
+OPENMODELICA_VERSION=1.20.0_dev-250-gb17e1a0-1
 TOP_PACKAGE=Buildings
 
 # Top level package name, and location of the library to be tested
@@ -16,6 +16,11 @@ MODELICA_LIB=${BUILDINGS_LIB}
 else
 MODELICA_LIB=${IBPSA_LIB}
 endif
+
+LIB_VERSION=`grep -Po ^version=\".+\" ${MODELICA_LIB}/${TOP_PACKAGE}/package.mo | \
+  sed -s 's/version=\"//g' | \
+  sed -s 's/\",//g'`
+
 
 MO_ROOT=$(shell basename ${MODELICA_LIB})
 
@@ -38,18 +43,18 @@ COMMAND_START=docker run -t --interactive ${DOCKER_FLAGS} /bin/bash -c -i
 
 start_bash:
 	$(COMMAND_START) \
-	   "export USER=test && \
-	    export MODELICAPATH=/mnt/modelica_lib && \
+	   "ln -s /mnt/modelica_lib/${TOP_PACKAGE} /home/developer/.openmodelica/libraries/${TOP_PACKAGE}\ ${LIB_VERSION} && \
             cd /mnt/shared && bash"
 
 test:
-	rm -f shared/Modelica.Blocks.Examples.PID_Controller*
+	rm -f shared/*
 	mkdir -p shared
 	cp test.mos shared/
 	$(COMMAND_RUN) \
-	  "cd /mnt/shared && \
+	  "ln -s /mnt/modelica_lib/${TOP_PACKAGE} /home/developer/.openmodelica/libraries/${TOP_PACKAGE}\ ${LIB_VERSION} && \
+	  cd /mnt/shared && \
 	  omc test.mos"
-	rm shared/Modelica.Blocks.Examples.PID_Controller*
+	rm shared/*
 
 remove:
 	docker rm $(docker ps -a -q)
