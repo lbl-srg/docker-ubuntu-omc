@@ -34,7 +34,7 @@ RUN echo \
 # See https://build.openmodelica.org/apt/dists/focal/nightly/binary-amd64/Packages for package version.
 RUN apt-get update && \
   apt-get --no-install-recommends install -y \
-  omc=1.20.0~dev-250-gb17e1a0-1 && \
+  omc=1.20.0~dev-314-g3033f43-1 && \
   rm -rf /var/lib/apt/lists/*
 
 # Set user id
