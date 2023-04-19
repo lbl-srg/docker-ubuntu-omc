@@ -4,7 +4,7 @@
 # mwetter@lbl.gov                                    2019-01-08
 ###############################################################
 
-OPENMODELICA_VERSION=1.20.0_dev-314-g3033f43-1
+OPENMODELICA_VERSION=1.22.0_dev-41-g8a5b18f-1
 TOP_PACKAGE=Buildings
 
 # Top level package name, and location of the library to be tested
@@ -24,7 +24,7 @@ LIB_VERSION=`grep -Po ^version=\".+\" ${MODELICA_LIB}/${TOP_PACKAGE}/package.mo 
 
 MO_ROOT=$(shell basename ${MODELICA_LIB})
 
-NAME=michaelwetter/ubuntu-2004-omc:${OPENMODELICA_VERSION}
+NAME=michaelwetter/ubuntu-2204-omc:${OPENMODELICA_VERSION}
 
 #DISPLAY=$(shell echo ${DOCKER_HOST} | sed -e 's|tcp://||' | sed -e 's|:.*||')
 UNAME := $(shell uname)

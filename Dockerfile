@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 
 # Avoid warnings
 # debconf: unable to initialize frontend: Dialog
@@ -13,8 +13,8 @@ RUN apt-get update && \
   ca-certificates \
   wget \
   gnupg2 \
-  libgfortran4 \
-  libpython3.8-dev \
+  gfortran \
+  libpython3-dev \
   curl \
   lsb-release \
   && \
@@ -34,7 +34,7 @@ RUN echo \
 # See https://build.openmodelica.org/apt/dists/focal/nightly/binary-amd64/Packages for package version.
 RUN apt-get update && \
   apt-get --no-install-recommends install -y \
-  omc=1.20.0~dev-314-g3033f43-1 && \
+  omc=1.22.0~dev-41-g8a5b18f-1 && \
   rm -rf /var/lib/apt/lists/*
 
 # Set user id
