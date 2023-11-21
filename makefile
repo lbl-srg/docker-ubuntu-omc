@@ -24,7 +24,7 @@ LIB_VERSION=`grep -Po ^version=\".+\" ${MODELICA_LIB}/${TOP_PACKAGE}/package.mo 
 
 MO_ROOT=$(shell basename ${MODELICA_LIB})
 
-NAME=michaelwetter/ubuntu-2204-omc:${OPENMODELICA_VERSION}
+NAME=lbnlblum/ubuntu-2204-omc:${OPENMODELICA_VERSION}
 
 #DISPLAY=$(shell echo ${DOCKER_HOST} | sed -e 's|tcp://||' | sed -e 's|:.*||')
 UNAME := $(shell uname)

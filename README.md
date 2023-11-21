@@ -5,4 +5,4 @@ of the [Modelica Buildings library](https://github.com/lbl-srg/modelica-building
 of the [Modelica IBPSA library](https://github.com/lbl-srg/modelica-buildings).
 
 The docker image can be downloaded from
-[https://hub.docker.com/r/michaelwetter/ubuntu-2004-omc](https://hub.docker.com/r/michaelwetter/ubuntu-2004-omc)
+[https://hub.docker.com/repository/docker/lbnlblum/ubuntu-2204-omc/general](https://hub.docker.com/repository/docker/lbnlblum/ubuntu-2204-omc/general)
