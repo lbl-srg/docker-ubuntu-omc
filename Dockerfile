@@ -1,5 +1,10 @@
 FROM ubuntu:22.04
 
+ARG OPENMODELICA_VERSION
+ARG TYPE
+ENV OPENMODELICA_VERSION $OPENMODELICA_VERSION
+ENV TYPE $TYPE
+
 # Avoid warnings
 # debconf: unable to initialize frontend: Dialog
 # debconf: (TERM is not set, so the dialog frontend is not usable.)
@@ -29,12 +34,11 @@ RUN curl -fsSL http://build.openmodelica.org/apt/openmodelica.asc | gpg --dearmo
 # Or replace stable with nightly or release
 RUN echo \
  "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/openmodelica-keyring.gpg] https://build.openmodelica.org/apt \
- $(lsb_release -cs) nightly" | tee /etc/apt/sources.list.d/openmodelica.list > /dev/null
+ $(lsb_release -cs) $TYPE" | tee /etc/apt/sources.list.d/openmodelica.list > /dev/null
 
-# See https://build.openmodelica.org/apt/dists/focal/nightly/binary-amd64/Packages for package version.
 RUN apt-get update && \
   apt-get --no-install-recommends install -y \
-  omc=1.22.0~dev-41-g8a5b18f-1 && \
+  omc=$OPENMODELICA_VERSION && \
   rm -rf /var/lib/apt/lists/*
 
 # Set user id

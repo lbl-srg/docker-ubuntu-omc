@@ -4,7 +4,14 @@
 # mwetter@lbl.gov                                    2019-01-08
 ###############################################################
 
-OPENMODELICA_VERSION=1.22.0_dev-41-g8a5b18f-1
+# Version, such as 1.22.0-1 (for release) or 1.22.0~dev-41-g8a5b18f-1 (for stable)
+# See https://build.openmodelica.org/apt/dists/focal/nightly/binary-amd64/Packages for package version.
+OPENMODELICA_VERSION=1.22.0-1
+# Use stable, nightly or release
+TYPE=release
+
+
+OPENMODELICA_VERSION_NOTILDE=$(subst ~,-,$(OPENMODELICA_VERSION))
 TOP_PACKAGE=Buildings
 
 # Top level package name, and location of the library to be tested
@@ -24,7 +31,7 @@ LIB_VERSION=`grep -Po ^version=\".+\" ${MODELICA_LIB}/${TOP_PACKAGE}/package.mo 
 
 MO_ROOT=$(shell basename ${MODELICA_LIB})
 
-NAME=lbnlblum/ubuntu-2204-omc:${OPENMODELICA_VERSION}
+NAME=lbnlblum/ubuntu-2204-omc:${OPENMODELICA_VERSION_NOTILDE}
 
 #DISPLAY=$(shell echo ${DOCKER_HOST} | sed -e 's|tcp://||' | sed -e 's|:.*||')
 UNAME := $(shell uname)
@@ -40,6 +47,11 @@ DOCKER_FLAGS=\
 COMMAND_RUN=docker run ${DOCKER_FLAGS} /bin/bash -c
 
 COMMAND_START=docker run -t --interactive ${DOCKER_FLAGS} /bin/bash -c -i
+
+
+print_version:
+	@echo ${OPENMODELICA_VERSION_NOTILDE}
+
 
 start_bash:
 	$(COMMAND_START) \
@@ -65,7 +77,7 @@ remove-image:
 
 build:
 	@echo Building docker image ${NAME}
-	docker build --no-cache -t ${NAME} .
+	docker build --build-arg OPENMODELICA_VERSION=${OPENMODELICA_VERSION} --build-arg TYPE=${TYPE} --no-cache -t ${NAME} .
 
 push:
 	@echo "**** Pushing image ${NAME}"
