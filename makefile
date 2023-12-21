@@ -6,7 +6,7 @@
 
 # Version, such as 1.22.0-1 (for release) or 1.22.0~dev-41-g8a5b18f-1 (for stable)
 # See https://build.openmodelica.org/apt/dists/focal/nightly/binary-amd64/Packages for package version.
-OPENMODELICA_VERSION=1.22.0-1
+OPENMODELICA_VERSION=1.22.1-1
 # Use stable, nightly or release
 TYPE=release
 
