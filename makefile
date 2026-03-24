@@ -1,4 +1,4 @@
-# Makefile for docker that contains Dymola.
+# Makefile for docker that contains OpenModelica.
 #
 #
 # mwetter@lbl.gov                                    2019-01-08
@@ -7,7 +7,7 @@
 # Version, such as 1.22.0-1 (for release) or 1.22.0~dev-41-g8a5b18f-1 (for stable)
 # See https://build.openmodelica.org/apt/dists/focal/nightly/binary-amd64/Packages for package version.
 #OPENMODELICA_VERSION=1.23.0~dev.beta.1-1-g379f714-1
-OPENMODELICA_VERSION=1.24.0-1
+OPENMODELICA_VERSION=1.26.3-1
 # Use stable, nightly or release
 #TYPE=stable
 TYPE=release
@@ -33,7 +33,7 @@ LIB_VERSION=`grep -Po ^version=\".+\" ${MODELICA_LIB}/${TOP_PACKAGE}/package.mo 
 
 MO_ROOT=$(shell basename ${MODELICA_LIB})
 
-NAME=lbnlblum/ubuntu-2204-omc:${OPENMODELICA_VERSION_NOTILDE}
+NAME=lbnlblum/ubuntu-2404-omc:${OPENMODELICA_VERSION_NOTILDE}
 
 #DISPLAY=$(shell echo ${DOCKER_HOST} | sed -e 's|tcp://||' | sed -e 's|:.*||')
 UNAME := $(shell uname)

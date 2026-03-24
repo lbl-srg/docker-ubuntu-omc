@@ -1,4 +1,4 @@
-FROM ubuntu:22.04
+FROM ubuntu:24.04
 
 ARG OPENMODELICA_VERSION
 ARG TYPE
@@ -57,7 +57,7 @@ ENV HOME /home/developer
 
 # Install MSL
 RUN echo \
-  "updatePackageIndex(); getErrorString();\ninstallPackage(Modelica, \"4.0.0\"); getErrorString();" >> /tmp/installMSL.mos && \
+  "updatePackageIndex(); getErrorString();\ninstallPackage(Modelica, \"4.1.0\"); getErrorString();" >> /tmp/installMSL.mos && \
   omc /tmp/installMSL.mos && \
   rm /tmp/installMSL.mos
 ##  chown ${uid}:${gid} /home/developer
